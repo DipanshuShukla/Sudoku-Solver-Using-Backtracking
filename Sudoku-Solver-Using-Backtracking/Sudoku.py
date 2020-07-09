@@ -12,6 +12,7 @@ STAT_FONT = pygame.font.SysFont("comicsans", 100)
 # Color Pallet
 BLACK = [72, 72, 72]
 GREY = [200, 200, 200]
+TEXT = [160,160,160]
 WHITE = [255,255,255]
 
 SCALE = WIN_WIDTH //9
@@ -43,7 +44,12 @@ class Board:
             pygame.draw.line(WINDOW, BLACK, (x, 0), (x, WIN_WIDTH), 8)
             pygame.draw.line(WINDOW, BLACK, (0, x), (WIN_WIDTH, x), 8)
 
-
+        for row in range(len(self.Pick_Board())):
+            for col in range(len(self.board[row])):
+                text = STAT_FONT.render("{}".format(self.board[row][col] if self.board[row][col]>0 else ""), 1, TEXT)
+                Wgap = (SCALE-text.get_width())//2
+                Hgap = (SCALE - text.get_height()) // 2
+                WINDOW.blit(text, (col*SCALE+Wgap+1, row*SCALE+Hgap+2))
 
         pygame.display.update()
 
