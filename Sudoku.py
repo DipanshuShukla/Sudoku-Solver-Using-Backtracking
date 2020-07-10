@@ -3,15 +3,16 @@ import solver
 
 pygame.init()
 
-WIN_WIDTH = 600
+WIN_WIDTH = 700
 
 SCALE = WIN_WIDTH // 9
-WIN_HEIGHT = WIN_WIDTH + SCALE//2.5
+WIN_HEIGHT = WIN_WIDTH + SCALE//2
 
 WINDOW = pygame.display.set_mode((WIN_WIDTH, int(WIN_HEIGHT)))
 pygame.display.set_caption("Sudoku")
 
 STAT_FONT = pygame.font.SysFont("comicsans", SCALE)
+LABEL_FONT = pygame.font.SysFont("comicsans", int(SCALE//2.8))
 
 # Color Pallet
 BLACK = [72, 72, 72]
@@ -38,6 +39,9 @@ class Board:
 
         return self.board
 
+    def Get_Board(self):
+        return self.board
+
     def Draw(self):
         WINDOW.fill(WHITE)
         for x in range(0, WIN_WIDTH, SCALE):
@@ -48,27 +52,34 @@ class Board:
             pygame.draw.line(WINDOW, BLACK, (x, 0), (x, WIN_WIDTH), 8)
             pygame.draw.line(WINDOW, BLACK, (0, x), (WIN_WIDTH, x), 8)
 
-        for row in range(len(self.Pick_Board())):
+        for row in range(len(self.board)):
             for col in range(len(self.board[row])):
                 text = STAT_FONT.render("{}".format(self.board[row][col] if self.board[row][col] > 0 else ""), 1, TEXT)
                 Wgap = (SCALE - text.get_width()) // 2
                 Hgap = (SCALE - text.get_height()) // 2
                 WINDOW.blit(text, (col * SCALE + Wgap + 2, row * SCALE + Hgap+4))
 
+        text = LABEL_FONT.render("{}".format("Press SPACE to solve automatically."), 1, BLACK)
+        WINDOW.blit(text, (int(SCALE*2.7), int(WIN_HEIGHT-SCALE//2.7)))
+
         pygame.display.update()
 
 
 
 def main():
-    FPS = 10
+    FPS = 5
     Clock = pygame.time.Clock()
     run = True
 
     board = Board()
+    board.Pick_Board()
 
     while run:
         Clock.tick(FPS)
-        board.Draw()
+
+        keys = pygame.key.get_pressed()
+
+        solver.Solve(board)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
