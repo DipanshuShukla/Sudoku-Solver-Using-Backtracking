@@ -1,21 +1,25 @@
 import pygame
+import solver
 
 pygame.init()
 
-WIN_WIDTH, WIN_HEIGHT = 900, 900
+WIN_WIDTH = 600
 
-WINDOW = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
+SCALE = WIN_WIDTH // 9
+WIN_HEIGHT = WIN_WIDTH + SCALE//2.5
+
+WINDOW = pygame.display.set_mode((WIN_WIDTH, int(WIN_HEIGHT)))
 pygame.display.set_caption("Sudoku")
 
-STAT_FONT = pygame.font.SysFont("comicsans", 100)
+STAT_FONT = pygame.font.SysFont("comicsans", SCALE)
 
 # Color Pallet
 BLACK = [72, 72, 72]
 GREY = [200, 200, 200]
-TEXT = [160,160,160]
-WHITE = [255,255,255]
+TEXT = [160, 160, 160]
+WHITE = [255, 255, 255]
 
-SCALE = WIN_WIDTH //9
+
 
 class Board:
     def __init__(self):
@@ -36,20 +40,20 @@ class Board:
 
     def Draw(self):
         WINDOW.fill(WHITE)
-        for x in range(0,WIN_WIDTH,SCALE):
+        for x in range(0, WIN_WIDTH, SCALE):
             pygame.draw.line(WINDOW, GREY, (x, 0), (x, WIN_WIDTH), 4)
             pygame.draw.line(WINDOW, GREY, (0, x), (WIN_WIDTH, x), 4)
 
-        for x in range(0,WIN_WIDTH+1,WIN_WIDTH // 3-1):
+        for x in range(0, WIN_WIDTH + 1, WIN_WIDTH // 3 - 1):
             pygame.draw.line(WINDOW, BLACK, (x, 0), (x, WIN_WIDTH), 8)
             pygame.draw.line(WINDOW, BLACK, (0, x), (WIN_WIDTH, x), 8)
 
         for row in range(len(self.Pick_Board())):
             for col in range(len(self.board[row])):
-                text = STAT_FONT.render("{}".format(self.board[row][col] if self.board[row][col]>0 else ""), 1, TEXT)
-                Wgap = (SCALE-text.get_width())//2
+                text = STAT_FONT.render("{}".format(self.board[row][col] if self.board[row][col] > 0 else ""), 1, TEXT)
+                Wgap = (SCALE - text.get_width()) // 2
                 Hgap = (SCALE - text.get_height()) // 2
-                WINDOW.blit(text, (col*SCALE+Wgap+1, row*SCALE+Hgap+2))
+                WINDOW.blit(text, (col * SCALE + Wgap + 2, row * SCALE + Hgap+4))
 
         pygame.display.update()
 
@@ -70,4 +74,6 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
-main()
+
+if __name__ == '__main__':
+    main()
