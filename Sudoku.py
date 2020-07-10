@@ -1,5 +1,6 @@
 import pygame
 import solver
+import copy
 
 pygame.init()
 
@@ -18,6 +19,7 @@ LABEL_FONT = pygame.font.SysFont("comicsans", int(SCALE//2.8))
 BLACK = [72, 72, 72]
 GREY = [200, 200, 200]
 TEXT = [160, 160, 160]
+ITEXT = [153, 102, 51]
 WHITE = [255, 255, 255]
 
 
@@ -25,9 +27,10 @@ WHITE = [255, 255, 255]
 class Board:
     def __init__(self):
         self.board = []
+        self.initBoard = []
 
     def Pick_Board(self):
-        self.board = [[0, 4, 2, 6, 0, 0, 0, 0, 3],
+        self.initBoard = [[0, 4, 2, 6, 0, 0, 0, 0, 3],
                       [0, 0, 0, 0, 0, 0, 7, 0, 0],
                       [5, 3, 8, 0, 0, 1, 6, 0, 2],
                       [0, 0, 5, 0, 0, 9, 0, 7, 0],
@@ -37,7 +40,7 @@ class Board:
                       [0, 0, 1, 0, 0, 0, 0, 0, 0],
                       [3, 0, 0, 0, 0, 2, 8, 9, 0]]
 
-        return self.board
+        self.board = copy.deepcopy(self.initBoard)
 
     def Get_Board(self):
         return self.board
@@ -59,6 +62,13 @@ class Board:
                 Hgap = (SCALE - text.get_height()) // 2
                 WINDOW.blit(text, (col * SCALE + Wgap + 2, row * SCALE + Hgap+4))
 
+        for row in range(len(self.initBoard)):
+            for col in range(len(self.initBoard[row])):
+                text = STAT_FONT.render("{}".format(self.initBoard[row][col] if self.initBoard[row][col] > 0 else ""), 1, ITEXT)
+                Wgap = (SCALE - text.get_width()) // 2
+                Hgap = (SCALE - text.get_height()) // 2
+                WINDOW.blit(text, (col * SCALE + Wgap + 2, row * SCALE + Hgap+4))
+
         text = LABEL_FONT.render("{}".format("Press SPACE to solve automatically."), 1, BLACK)
         WINDOW.blit(text, (int(SCALE*2.7), int(WIN_HEIGHT-SCALE//2.7)))
 
@@ -67,7 +77,7 @@ class Board:
 
 
 def main():
-    FPS = 5
+    FPS = 30
     Clock = pygame.time.Clock()
     run = True
 
@@ -78,8 +88,10 @@ def main():
         Clock.tick(FPS)
 
         keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE]:
+            solver.Solve(board)
 
-        solver.Solve(board)
+        board.Draw()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
