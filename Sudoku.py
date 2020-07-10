@@ -12,7 +12,7 @@ WIN_HEIGHT = WIN_WIDTH + SCALE//2
 WINDOW = pygame.display.set_mode((WIN_WIDTH, int(WIN_HEIGHT)))
 pygame.display.set_caption("Sudoku")
 
-STAT_FONT = pygame.font.SysFont("comicsans", SCALE)
+STAT_FONT = pygame.font.SysFont("Times", int(SCALE//1.3))
 LABEL_FONT = pygame.font.SysFont("comicsans", int(SCALE//2.8))
 
 # Color Pallet
@@ -60,19 +60,24 @@ class Board:
                 text = STAT_FONT.render("{}".format(self.board[row][col] if self.board[row][col] > 0 else ""), 1, TEXT)
                 Wgap = (SCALE - text.get_width()) // 2
                 Hgap = (SCALE - text.get_height()) // 2
-                WINDOW.blit(text, (col * SCALE + Wgap + 2, row * SCALE + Hgap+4))
+                WINDOW.blit(text, (col * SCALE + Wgap + 2, row * SCALE + Hgap+3))
 
         for row in range(len(self.initBoard)):
             for col in range(len(self.initBoard[row])):
                 text = STAT_FONT.render("{}".format(self.initBoard[row][col] if self.initBoard[row][col] > 0 else ""), 1, ITEXT)
                 Wgap = (SCALE - text.get_width()) // 2
                 Hgap = (SCALE - text.get_height()) // 2
-                WINDOW.blit(text, (col * SCALE + Wgap + 2, row * SCALE + Hgap+4))
+                WINDOW.blit(text, (col * SCALE + Wgap + 2, row * SCALE + Hgap+3))
 
         text = LABEL_FONT.render("{}".format("Press SPACE to solve automatically."), 1, BLACK)
         WINDOW.blit(text, (int(SCALE*2.7), int(WIN_HEIGHT-SCALE//2.7)))
 
         pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
 
 
 
