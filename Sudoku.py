@@ -70,7 +70,7 @@ class Board:
                 WINDOW.blit(text, (col * SCALE + Wgap + 2, row * SCALE + Hgap+3))
 
         text = LABEL_FONT.render("{}".format("Press SPACE to solve automatically."), 1, BLACK)
-        WINDOW.blit(text, (int(WIN_WIDTH//2 - text.get_width()//), int(WIN_HEIGHT-SCALE//2.7)))
+        WINDOW.blit(text, (int(WIN_WIDTH//2 - text.get_width()//2), int(WIN_HEIGHT-SCALE//2.7)))
 
         pygame.display.update()
 
