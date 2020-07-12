@@ -25,7 +25,7 @@ The backtracking algorithm traverses this search tree recursively, from the root
 2. recursively enumerates all sub-trees of c. The two tests and the children of each node are defined by user-given procedures.
 
 <p align="center">
-<img src = "backtracking.png" height="560" width="610">
+<img src = "backtracking.png" height="455" width="600">
 </p>
 
 Therefore, the actual search tree that is traversed by the algorithm is only a part of the potential tree. The total cost of the algorithm is the number of nodes of the actual tree times the cost of obtaining and processing each node. This fact should be considered when choosing the potential search tree and implementing the pruning test.
