@@ -51,6 +51,8 @@ function backtrack(junction):
   return false
   ```
 
+![Image](sol.gif)
+
 
 # Authors
 - Dipanshu Shukla - Initial work - [Github](https://github.com/DipanshuShukla)
