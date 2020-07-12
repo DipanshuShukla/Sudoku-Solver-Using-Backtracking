@@ -8,8 +8,9 @@ Completed games are always an example of a Latin square, including an additional
 
 French newspapers featured variations of the Sudoku puzzles in the 19th century, and the puzzle has appeared since 1979 in puzzle books under the name Number Place. However, the modern Sudoku only began to gain widespread popularity in 1986 when it was published by the Japanese puzzle company Nikoli under the name Sudoku, meaning "single number". It first appeared in a U.S. newspaper, and then The Times (London), in 2004, thanks to the efforts of Wayne Gould, who devised a computer program to rapidly produce unique puzzles.
 
-![Image](SS.PNG)
-
+<p align="center">
+<img src = "SS.PNG">
+</p>
 
 ## Backtracking
 Backtracking is a general algorithm for finding all (or some) solutions to some computational problems, notably constraint satisfaction problems, that incrementally builds candidates to the solutions, and abandons a candidate ("backtracks") as soon as it determines that the candidate cannot possibly be completed to a valid solution.
@@ -23,7 +24,9 @@ The backtracking algorithm traverses this search tree recursively, from the root
 1.  checks whether c itself is a valid solution, and if so reports it to the user;
 2. recursively enumerates all sub-trees of c. The two tests and the children of each node are defined by user-given procedures.
 
-![Image](backtracking.png)
+<p align="center">
+<img src = "backtracking.png" height="560" width="610">
+</p>
 
 Therefore, the actual search tree that is traversed by the algorithm is only a part of the potential tree. The total cost of the algorithm is the number of nodes of the actual tree times the cost of obtaining and processing each node. This fact should be considered when choosing the potential search tree and implementing the pruning test.
 
@@ -49,10 +52,11 @@ function backtrack(junction):
       return true    
   
   return false
-  ```
+```
 
-![Image](sol.gif)
-
+<p align="center">
+<img src = "sol.gif">
+</p>
 
 # Authors
 - Dipanshu Shukla - Initial work - [Github](https://github.com/DipanshuShukla)
